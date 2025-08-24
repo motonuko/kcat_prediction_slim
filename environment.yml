@@ -1,0 +1,27 @@
+name: kcat_prediction_slim
+channels:
+  - conda-forge
+  - pkgs/main
+  - defaults
+dependencies:
+  # The original requirements can be found at https://github.com/AlexanderKroll/kcat_prediction/blob/main/README.md
+  - python=3.9  # changed
+  - pandas=1.5 # changed
+  - numpy=1.21.2
+  - matplotlib=3.4.1
+  - rdkit=2021.03  # changed
+  - scikit-learn=0.23  # changed
+  - py-xgboost=1.5  # changed
+  - pip
+  - pip:
+    - torch==1.9  # changed
+    - tensorflow
+    - fair-esm==0.3.1
+    - jupyter
+    - hyperopt==0.2.5 # changed
+    - biopython==1.78
+    - drfp==0.3.6
+    - zeep==4.2.1
+    - suds-py3  # Added (fixes error when using pd.read_pickle)
+    - python-dotenv==1.0.1  # Added for path management
+    - -e .  # Added

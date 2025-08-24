@@ -1,0 +1,7 @@
+data
+data_embedding
+.idea
+build
+*.env
+bin/local
+kcat_prediction_slim.egg-info

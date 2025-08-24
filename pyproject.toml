@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=64", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kcat_prediction_slim"  # TODO: should be unique
+version = "2.1.0"
+description = "A Python package"
+authors = [{ name = "Tomoya Okuno", email = "motonuko.contact@gmail.com" }]
+
+[tool.setuptools.packages]
+find = { include = ["kcat_prediction_slim"], exclude = ["*.tests", "*.tests.*", "tests.*", "tests"] }
+
+# TODO: write dependencies
+# TODO: write license
