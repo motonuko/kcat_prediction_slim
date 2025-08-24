@@ -5,6 +5,21 @@ at https://github.com/AlexanderKroll/kcat_prediction.
 
 ## Workflow
 
+### Set up environment
+
+```shell
+conda env create -f environment.yml
+```
+
+The following three dependencies may not be compatible with  GPU environment.
+Please adjust them accordingly:
+
+```shell
+  - cudatoolkit=11.0.3
+  - cuda-version=11.0
+  - nccl=2.25.1.1
+```
+
 ### Download datasets
 
 Following the instruction of [original project](https://github.com/AlexanderKroll/kcat_prediction), 
@@ -28,11 +43,11 @@ Place precomputed embeddings under `data_embedding/` dir.
 ### Run main script
 
 ```shell
-conda run -n kcat_prediction python kcat_prediction_slim/main.py "<path-to-the-project-root>/data_embedding/kcat_sequence_embeddings_250420_121652.csv" --run-all
+conda run -n kcat_prediction_slim python kcat_prediction_slim/main.py "<path-to-the-project-root>/data_embedding/kcat_sequence_embeddings_250420_121652.csv" --run-all
 ```
 
 ### Visualize the result
 
 ```shell
-conda run -n kcat_prediction python  kcat_prediction_slim/visualize_box.py --target-app-ver KCAT_APP_VER  2.1.0 --models 250420_121652 --seeds 42 43 44 45 46 47 48 49 50 51
+conda run -n kcat_prediction_slim python  kcat_prediction_slim/visualize_box.py --target-app-ver KCAT_APP_VER  2.1.0 --models 250420_121652 --seeds 42 43 44 45 46 47 48 49 50 51
 ```
