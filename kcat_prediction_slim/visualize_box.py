@@ -69,8 +69,8 @@ def load_result(result_dirs, models, seeds):
 def filtered_unfiltered_indexes(test_y):
     data_test = pd.read_pickle(
         DefaultPath().original_data_dir / "kcat_data" / "splits" / "test_df_kcat.pkl")
-    data_test_filtered = pd.read_pickle(
-        DefaultPath().project_root / "data" / "test_df_kcat_filtered.pkl")
+    data_test_filtered = pd.read_csv(
+        DefaultPath().project_root / "data" / "test_df_kcat_filtered_sequence_ids.csv")
 
     assert np.all(np.isclose(test_y, np.array(data_test['geomean_kcat']), rtol=1e-5, atol=1e-8)), "Arrays differ"
 
