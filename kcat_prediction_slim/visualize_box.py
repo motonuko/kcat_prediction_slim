@@ -190,6 +190,7 @@ class DrawType(Enum):
 
 
 def main(target_ver: str, x_models: Set[str], x_seeds: Set[int], draw_type: DrawType,
+        results_parent_dir: Path,
          model_name_prefix='ESM1B_EnzSRP_kcat_sequence_embeddings',
          model_name_prefix2='ESM1B_EnzSRP_DRFP_mean_kcat_sequence_embeddings', out_file_stem='boxplots'):
     x_models = [*fixed_models,
@@ -197,11 +198,10 @@ def main(target_ver: str, x_models: Set[str], x_seeds: Set[int], draw_type: Draw
                 *fixed_models_drfp_mean,
                 *[f"{model_name_prefix2}_{n}" for n in x_models]]
 
-    result_parent_dir = DefaultPath().build / 'server_training_results'
     out_dir = DefaultPath().build / 'viz' / target_ver
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    dirs = list_subdirectories(result_parent_dir / target_ver)
+    dirs = list_subdirectories(results_parent_dir / target_ver)
     if draw_type == DrawType.ALL:
         results = load_result(dirs, x_models, x_seeds)
     elif draw_type == DrawType.FILTERED:
@@ -228,11 +228,14 @@ if __name__ == '__main__':
     parser.add_argument('--target-app-ver', type=str, default='v2_1_0')
     parser.add_argument('--models', nargs='+', default=['250420_121652'])
     parser.add_argument('--seeds', type=int, nargs='+', default=[42, 43, 44, 45, 46, 47, 48, 49, 50, 51])
+    parser.add_argument('--result-parent-dir', type=Path, nargs=None)
+
+    # result_parent_dir = DefaultPath().build / 'server_training_results'
 
     args = parser.parse_args()
     main(target_ver=args.target_app_ver, x_models=args.models, x_seeds=args.seeds, draw_type=DrawType.ALL,
-         out_file_stem='boxplot_all')
+         out_file_stem='boxplot_all', results_parent_dir=args.result_parent_dir)
     main(target_ver=args.target_app_ver, x_models=args.models, x_seeds=args.seeds, draw_type=DrawType.FILTERED,
-         out_file_stem='boxplot_filtered')
+         out_file_stem='boxplot_filtered', results_parent_dir=args.result_parent_dir)
     main(target_ver=args.target_app_ver, x_models=args.models, x_seeds=args.seeds, draw_type=DrawType.UNFILTERED,
-         out_file_stem='boxplot_unfiltered')
+         out_file_stem='boxplot_unfiltered', results_parent_dir=args.result_parent_dir)
