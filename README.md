@@ -1,7 +1,7 @@
 # kcat_prediction
 
-This project is a simplified version that extracts the XX component from the project
-at https://github.com/AlexanderKroll/kcat_prediction.
+This project provides a code for K_cat prediction for for the natural reactions of wild-type enzymes.
+The most of the part of this project is based on Kroll's work: https://github.com/AlexanderKroll/kcat_prediction.
 
 ## Workflow
 
@@ -11,7 +11,7 @@ at https://github.com/AlexanderKroll/kcat_prediction.
 conda env create -f environment.yml
 ```
 
-The following three dependencies may not be compatible with  GPU environment.
+The following three dependencies may not be compatible with your GPU environment.
 Please adjust them accordingly:
 
 ```shell
@@ -40,13 +40,15 @@ KCAT_PREDICTION_PROJECT_ROOT="<path-to-the-project-root>"
 
 Place precomputed embeddings under `data_embedding/` dir.
 
-### Run main script
+### Predict k_cat values
+
+The following command runs the main script for k_cat prediction.
 
 ```shell
 python kcat_prediction_slim/main.py "<path-to-the-project-root>/data_embedding/kcat_sequence_embeddings_250420_121652.csv" --run-all
 ```
 
-### Visualize the result
+### Visualize the results
 
 ```shell
 python  kcat_prediction_slim/visualize_box.py --target-app-ver v2_1_0 --models 250420_121652 --seeds 42 43 44 45 46 47 48 49 50 51 --result-parent-dir data/results/ > build/viz/v2_1_0/visualize_box.log
