@@ -43,11 +43,11 @@ Place precomputed embeddings under `data_embedding/` dir.
 ### Run main script
 
 ```shell
-conda run -n kcat_prediction_slim python kcat_prediction_slim/main.py "<path-to-the-project-root>/data_embedding/kcat_sequence_embeddings_250420_121652.csv" --run-all
+python kcat_prediction_slim/main.py "<path-to-the-project-root>/data_embedding/kcat_sequence_embeddings_250420_121652.csv" --run-all
 ```
 
 ### Visualize the result
 
 ```shell
-conda run -n kcat_prediction_slim python  kcat_prediction_slim/visualize_box.py --target-app-ver v2_1_0 --models 250420_121652 --seeds 42 43 44 45 46 47 48 49 50 51 --result-parent-dir data/results/
+python  kcat_prediction_slim/visualize_box.py --target-app-ver v2_1_0 --models 250420_121652 --seeds 42 43 44 45 46 47 48 49 50 51 --result-parent-dir data/results/ > build/viz/v2_1_0/visualize_box.log
 ```

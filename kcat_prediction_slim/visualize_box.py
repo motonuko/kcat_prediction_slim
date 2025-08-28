@@ -117,7 +117,7 @@ def clean_label(text: str):
     return text
 
 
-def show_mse(ax, results, labels):
+def show_mse(ax, results):
     # ax.set_ylim(0.7, 1.0)
     # ax.set_xlim(0.5, len(models) + 0.5)
     box_data = []
@@ -125,7 +125,7 @@ def show_mse(ax, results, labels):
         model_result = [np.mean(abs(test_y - pred_y) ** 2) for pred_y, test_y in seed_results]
         box_data.append(model_result)
     ax.boxplot(box_data)
-    ax.set_xticklabels(labels, rotation=45, ha='right', rotation_mode='anchor')
+    ax.set_xticklabels(results.keys(), rotation=45, ha='right', rotation_mode='anchor')
     for label in ax.get_xticklabels():
         if '\n' in label._text:
             label.set_va('center')
@@ -162,13 +162,13 @@ def run_t_test_for_coefficient_of_determination(results):
         print(f"{marker} {cond1} vs {cond2}: t = {t_stat:.3f}, p = {p_val:.3g}")
 
 
-def show_coefficient_of_determination(ax, results, labels):
+def show_coefficient_of_determination(ax, results):
     box_data = []
     for i, (model, seed_results) in enumerate(results.items()):
         model_result = [r2_score(test_y, pred_y) for pred_y, test_y in seed_results]
         box_data.append(model_result)
     ax.boxplot(box_data)
-    ax.set_xticklabels(labels, rotation=45, ha='right', rotation_mode='anchor')
+    ax.set_xticklabels(results.keys(), rotation=45, ha='right', rotation_mode='anchor')
     for label in ax.get_xticklabels():
         if '\n' in label._text:
             label.set_va('center')
@@ -210,13 +210,15 @@ def main(target_ver: str, x_models: Set[str], x_seeds: Set[int], draw_type: Draw
         results = load_unfiltered_result(dirs, x_models, x_seeds)
     else:
         raise ValueError('unexpected')
-    labels = [model_names[model] if model in model_names.keys() else clean_label(model) for model in x_models]
+    label_map = {model: model_names[model] if model in model_names.keys() else clean_label(model) for model in x_models}
+
+    results = {label_map[k]: v for k, v in results.items()}
 
     fig, axes = plt.subplots(1, 2, figsize=(10, 4))
     fig.subplots_adjust(bottom=0.3)
-    show_coefficient_of_determination(axes[0], results, labels)
+    show_coefficient_of_determination(axes[0], results)
     run_t_test_for_coefficient_of_determination(results)
-    show_mse(axes[1], results, labels)
+    show_mse(axes[1], results)
     run_t_test_for_mse(results)
     plt.savefig(out_dir / f"{out_file_stem}.png")
     plt.savefig(out_dir / f"{out_file_stem}.pdf")
@@ -233,9 +235,12 @@ if __name__ == '__main__':
     # result_parent_dir = DefaultPath().build / 'server_training_results'
 
     args = parser.parse_args()
+    print('boxplot_all')
     main(target_ver=args.target_app_ver, x_models=args.models, x_seeds=args.seeds, draw_type=DrawType.ALL,
          out_file_stem='boxplot_all', results_parent_dir=args.result_parent_dir)
+    print('boxplot_filtered')
     main(target_ver=args.target_app_ver, x_models=args.models, x_seeds=args.seeds, draw_type=DrawType.FILTERED,
          out_file_stem='boxplot_filtered', results_parent_dir=args.result_parent_dir)
+    print('boxplot_unfiltered')
     main(target_ver=args.target_app_ver, x_models=args.models, x_seeds=args.seeds, draw_type=DrawType.UNFILTERED,
          out_file_stem='boxplot_unfiltered', results_parent_dir=args.result_parent_dir)
