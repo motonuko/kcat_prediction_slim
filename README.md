@@ -1,7 +1,11 @@
 # kcat_prediction
 
 This project provides a code for K_cat prediction for for the natural reactions of wild-type enzymes.
-The most of the part of this project is based on Kroll's work: https://github.com/AlexanderKroll/kcat_prediction.
+The most of the part of this project is based on Kroll's work: https://github.com/AlexanderKroll/kcat_prediction
+which is licensed under the MIT License.
+
+All code in this repository, including modifications and additions, 
+is released under the MIT License. See LICENSE for details.
 
 ## Workflow
 
