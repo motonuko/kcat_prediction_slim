@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kcat_prediction_slim"  # TODO: should be unique
-version = "2.1.0"
+version = "3.0.0"
 description = "A Python package"
 authors = [{ name = "Tomoya Okuno", email = "motonuko.contact@gmail.com" }]
 
