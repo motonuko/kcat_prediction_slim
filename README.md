@@ -1,11 +1,15 @@
 # kcat_prediction
 
-This project provides a code for K_cat prediction for for the natural reactions of wild-type enzymes.
+This project contains the implementation for kcat prediction for natural reactions of wild-type enzymes, as described in our publication:
+
+> Tomoya Okuno, Naoaki Ono, Md. Altaf-Ul-Amin, Shigehiko Kanaya, Self-supervised domain adaptation of protein language model based solely on positive enzyme-reaction pairs, Computational and Structural Biotechnology Journal, 27, 2025, 5441-5449, ISSN 2001-0370, https://doi.org/10.1016/j.csbj.2025.11.045.
+
 The most of the part of this project is based on Kroll's work: https://github.com/AlexanderKroll/kcat_prediction
 which is licensed under the MIT License.
 
 All code in this repository, including modifications and additions, 
 is released under the MIT License. See LICENSE for details.
+
 
 ## Workflow
 
